@@ -1,293 +1,412 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8"> 
-<title> (。・∀・)ノ~&nbsp;&nbsp;&nbsp;&nbsp;范永奇</title> 
- <style>  @keyframes typing {
-    from { width: 0}
-}
-@keyframes blink-caret {
-    50% { border-color: transparent; }
-}
- 
-.typeing {
-    font: 200% monospace;
-    font-size: 40px;
-    font-family: "楷体";
-    border-right: .08em solid;
-    width: 100ch;
-    white-space: nowrap;
-    overflow: hidden;
-    animation: typing 4s steps(40, end),
-               blink-caret .5s step-end infinite alternate; //这里的alternate是为了让光标闪烁的正常一点
-}</style>
-    <style id="css">
-        #wrap{width:200px; height:200px; border:2px solid #000; margin:100px auto;border-radius:50%; position:relative;}
-        #wrap ul{margin:0; padding:0; height:200px; position:relative; list-style:none;}
-        #wrap ul li{width:2px;  height:6px; background:#000; position:absolute; left:99px; top: 0;-webkit-transform-origin:center 100px;}
-        /*#wrap ul li:nth-of-type(1){-webkit-transform: rotate(0);}
-        #wrap ul li:nth-of-type(2){-webkit-transform: rotate(6deg);}
-        #wrap ul li:nth-of-type(3){-webkit-transform: rotate(12deg);}
-        #wrap ul li:nth-of-type(4){-webkit-transform: rotate(18deg);}
-        #wrap ul li:nth-of-type(5){-webkit-transform: rotate(24deg);}
-        #wrap ul li:nth-of-type(6){-webkit-transform: rotate(30deg);}
-        #wrap ul li:nth-of-type(7){-webkit-transform: rotate(36deg);}
-        #wrap ul li:nth-of-type(8){-webkit-transform: rotate(42deg);}*/
-        #wrap ul li:nth-of-type(5n+1){ height:12px;}
-        #hour{width:6px;  height:45px; background:#000; position:absolute; left:97px; top:55px;-webkit-transform-origin:bottom ;}
-        #min{width:4px;  height:65px; background:#999; position:absolute; left:98px; top:35px;-webkit-transform-origin:bottom ;}
-        #sec{width:2px;  height:80px; background:red; position:absolute; left:99px; top:20px;-webkit-transform-origin:bottom ;}
-        .icon{width:20px; height:20px; background:#000; border-radius:50%; position:absolute; left:90px; top: 90px;}
- 
-    </style>
+<meta charset="utf-8">
 <style>
-* {
-    box-sizing: border-box;
-}
-body {
-    margin: 0;
-}
-    .clear{
-        clear:both;
-    }
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    
+
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
 }
 
-.button2 {background-color: #008CBA;} /* Blue */
-.button3 {background-color: #f44336;} /* Red */ 
-.button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
-.button5 {background-color: #555555;} /* Black */
-.header {
-    background-color:#787F87;
-    color:white;
-    height:100%;
-    text-align: center;
-    padding: 25px;
-    margin: auto;
-    width:100%;
+#licensing {
+  fill: green;
+}
 
+.link.licensing {
+  stroke: green;
 }
-.headtop{
-    float: none;
-    width:110px;
-    height:20px;
-  
-    background-color: aliceblue;}
-.headerleft{
-    float: left;
-    width:300px;
-    height: auto;
-    display:block;
-    background-color:gray; 
-    }
-    .headermiddle{
-        float: left;
-        width:500px;
-        height:auto;
-        background-color:gray;
-        
-    }
-.headerright{
-    float: left;
-    width:300px;
-    background-color: gray;
-    }
-.footer {
-    background-color: #444;
-    color: white;
-    padding: 15px;
-    width:100%;
-    position:fixed;
-    bottom: 0;
+
+.link.resolved {
+  stroke-dasharray: 0,2 1;
 }
-.centre{
-        text-align: center;
-        background-color:white;
-        padding: 10px;height: 100px;
-    float: right;
-    }
-.topmenu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #777;
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
 }
-.topmenu li {
-    float: left;
+
+text {
+  font: 12px Microsoft YaHei;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
-.topmenu li a {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 16px;
-    text-decoration: none;
+
+.linetext {
+    font-size: 12px Microsoft YaHei;
 }
-.topmenu li a:hover {
-    background-color: #222;
-}
-.topmenu li a.active {
-    color: white;
-    background-color: #4CAF50;
-}
-.column {
-    float: left;
-    height:675px;
-    padding: 15px;
-}
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-.sidemenu {
-    width: 25%;
-}
-.content {
-    width: 75%;
-}
-.side{
-        width:100%;
-        height:250px; 
-    }
-.sidemenu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    height: auto;
-}
-.sidemenu li a {
-    margin-bottom: 4px;
-    display: block;
-    padding: 8px;
-    background-color: #eee;
-    text-decoration: none;
-    color: #666;
-}
-.sidemenu li a:hover {
-    background-color: #555;
-    color: white;
-}
-.sidemenu li a.active {
-    background-color: #008CBA;
-    color: white;
-}
+
 </style>
-</head>
 <body>
-    <script type="text/javascript" src="me.js" ></script>
-<ul class="topmenu">
-  <li><a href="#home" class="active">Home</a></li>
-  <li><a href="book.html">悠哉生活</a></li>
-  <li><a href="think.html">思考</a></li>
-  <li><a href="https://blog.csdn.net/qq_41722524">我のCSDN</a></li>
-  <li><a href="me.html">关于我</a></li>
-</ul>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
 
-<div class="clearfix">
-  <div class="column sidemenu">
-    <ul>
-      <li><a href="solar.html" style="background:#14CEEB "><strong>点进去可以看到太阳系哦</strong></a></li>
-      <li><a href="" class="active"><b>我的博客</b></a></li>
-      <li><a href="课程表.html"><b> 课程表</b></a></li>
-      <li><a href="ds.html"><b>数据结构</b></a></li>
-      <li><a href="os.html"><b>操作系统</b></a></li>
-      <li><a href="internet.html"><b>计算机网络</b></a></li>
-      <li><a href="computer.html"><b>计算机组成原理</b></a></li>
-    </ul>   
-    <div class="side">    <div id="wrap">
-    <ul id="list">
-        <!--<li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>-->
-    </ul>
-        <div id="hour"></div>
-        <div id="min"></div>
-        <div id="sec"></div>
-        <div class="icon"></div>
-    </div>
-       <script>
-        var oList=document.getElementById("list");//获取到刻度
-        var oCss=document.getElementById("css");
-        var oHour=document.getElementById("hour");//获取时针
-        var oMin=document.getElementById("min");//获取分针
-        var oSec=document.getElementById("sec");//获取秒针
-        var oLi="";
-        var sCss="";
-        for (var i=0;i<60;i++) { //一个表盘总共是60个刻度
-            sCss+="#wrap ul li:nth-of-type("+(i+1)+"){-webkit-transform: rotate("+i*6+"deg);}";
-            oLi+="<li></li>";
-        };
-        oList.innerHTML=oLi;
-        oCss.innerHTML+=sCss;//表盘刻度渲染完成
-        toTime();
-        setInterval(toTime,1000);
-        function toTime(){
-            var oDate=new Date();//获取当前时间
-            var iSec=oDate.getSeconds();//获取当前秒
-            var iMin=oDate.getMinutes()+iSec/60;//获取当前分
-            var iHour=oDate.getHours()+iMin/60;//获取当前时
-            oSec.style.WebkitTransform="rotate("+iSec*6+"deg)";//秒针转动角度1秒6度 (表盘一圈360度一圈60秒所以一秒6度)
-            oMin.style.WebkitTransform="rotate("+iMin*6+"deg)";//分钟转动角度1分6度 (表盘一圈360度一圈60分所以一分6度)
-            oHour.style.WebkitTransform="rotate("+iHour*30+"deg)";//时针转动角度一小时30度(表盘一圈360度一圈12小时所以一小时30度)
-        };
-</script>
-</div>
-  </div>
+// http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
+var links = [
+  {source: "孙坚", target: "孙策", type: "resolved", rela:"父子"},
+  {source: "孙坚", target: "孙权", type: "resolved", rela:"父子"},
+  {source: "孙坚", target: "孙尚香", type: "resolved", rela:"父女"},
+  {source: "孙坚", target: "韩当", type: "resolved", rela:"领导"},
+  {source: "孙坚", target: "丁奉", type: "resolved", rela:"领导"},
+  {source: "孙坚", target: "朱治", type: "resolved",rela:"领导"},
+  {source: "孙策", target: "孙尚香", type: "resolved",rela:"兄妹"},
+  {source: "孙策", target: "孙权", type: "resolved", rela:"兄弟"},
+  {source: "孙策", target: "周喻", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "程普", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "韩当", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "蒋钦", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "周泰", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "太史慈", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "丁奉", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "张昭", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "张纮", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "大乔", type: "resolved", rela:"夫妻"},
+  {source: "孙策", target: "贺齐", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "董袭", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "朱治", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "吕范", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "孙尚香", type: "resolved", rela:"兄妹"},
+  {source: "孙权", target: "孙亮", type: "resolved", rela:"父子"},
+  {source: "孙权", target: "周瑜", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "吕蒙", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "陆逊", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "黄盖", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "程普", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "韩当", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "蒋钦", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "周泰", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "甘宁", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "太史慈", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "徐盛", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "丁奉", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "鲁肃", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "张昭", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "张纮", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "顾雍", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "诸葛瑾", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "诸葛恪", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "潘璋", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "凌统", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "阚泽", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "凌操", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "贺齐", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "董袭", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "朱桓", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "朱然", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "步骘", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "陆绩", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "薛综", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "朱治", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "吕范", type: "resolved", rela:"领导"},
+  {source: "周瑜", target: "吕蒙", type: "resolved", rela:"领导"},
+  {source: "周瑜", target: "程普", type: "resolved", rela:"领导"},
+  {source: "周瑜", target: "小乔", type: "resolved", rela:"夫妻"},
+  {source: "周瑜", target: "诸葛亮", type: "resolved", rela:"对手"},
+  {source: "陆逊", target: "大乔", type: "resolved", rela:"岳母女婿"},
+  {source: "陆逊", target: "陆绩", type: "resolved", rela:"叔侄"},
+  {source: "大乔", target: "小乔", type: "resolved", rela:"姐妹"},
+  {source: "陆绩", target: "庞统", type: "resolved", rela:"朋友"},
+  {source: "凌操", target: "凌统", type: "resolved", rela:"父子"},
+  {source: "潘璋", target: "马忠", type: "resolved", rela:"领导"},
+  {source: "诸葛瑾", target: "诸葛恪", type: "resolved", rela:"父子"},
+  {source: "诸葛瑾", target: "诸葛亮", type: "resolved", rela:"兄弟"},
+  {source: "孙亮", target: "诸葛恪", type: "resolved", rela:"领导"},
+  {source: "鲁肃", target: "吕蒙", type: "resolved", rela:"朋友"},
+  {source: "孙尚香", target: "刘备", type: "resolved", rela:"夫妻"},
+  {source: "张昭", target: "张纮", type: "resolved", rela:"二张"}
 
-  <div class="column content">
-      <div class="header"> 
-          <br><br>
-        <div class="headerleft"></div>
-        <div class="headermiddle"></div>
-        <div class="headerright"></div>
-          <div class="clear"></div>
-          <br><br><br>
-           <img src="photo/4.gif">
-          <br><br><br><br><br><br>
-          <h2 style="font-family:Cambria, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', 'serif'" >
-             我时常回到童年，用一片童心来思考问题，很多烦恼的问题就变得易解。<br><br></h2>
-        <h3 style="text-align: right">《一只特立独行的🐖》————王小波&nbsp; </h3>
-  </div>
-</div>  
-</div>
+];
+
+var nodes = {};
+
+links.forEach(function(link) {
+  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+});
+
+var width = 2200,
+    height = 1500;
+
+var force = d3.layout.force()//layout将json格式转化为力学图可用的格式
+    .nodes(d3.values(nodes))//设定节点数组
+    .links(links)//设定连线数组
+    .size([width, height])//作用域的大小
+    .linkDistance(180)//连接线长度
+    .charge(-1500)//顶点的电荷数。该参数决定是排斥还是吸引，数值越小越互相排斥
+    .on("tick", tick)//指时间间隔，隔一段时间刷新一次画面
+    .start();//开始转换
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+//箭头
+var marker=
+    svg.append("marker")
+    //.attr("id", function(d) { return d; })
+    .attr("id", "resolved")
+    //.attr("markerUnits","strokeWidth")//设置为strokeWidth箭头会随着线的粗细发生变化
+    .attr("markerUnits","userSpaceOnUse")
+    .attr("viewBox", "0 -5 10 10")//坐标系的区域
+    .attr("refX",32)//箭头坐标
+    .attr("refY", -1)
+    .attr("markerWidth", 12)//标识的大小
+    .attr("markerHeight", 12)
+    .attr("orient", "auto")//绘制方向，可设定为：auto（自动确认方向）和 角度值
+    .attr("stroke-width",2)//箭头宽度
+    .append("path")
+    .attr("d", "M0,-5L10,0L0,5")//箭头的路径
+    .attr('fill','#000000');//箭头颜色
+
+/* 将连接线设置为曲线
+var path = svg.append("g").selectAll("path")
+    .data(force.links())
+    .enter().append("path")
+    .attr("class", function(d) { return "link " + d.type; })
+    .style("stroke",function(d){
+        //console.log(d);
+       return "#A254A2";//连接线的颜色
+    })
+    .attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
+*/
+
+//设置连接线    
+var edges_line = svg.selectAll(".edgepath")
+    .data(force.links())
+    .enter()
+    .append("path")
+    .attr({
+          'd': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
+          'class':'edgepath',
+          //'fill-opacity':0,
+          //'stroke-opacity':0,
+          //'fill':'blue',
+          //'stroke':'red',
+          'id':function(d,i) {return 'edgepath'+i;}})
+    .style("stroke",function(d){
+         var lineColor;
+         //根据关系的不同设置线条颜色
+         if(d.rela=="父子" || d.rela=="父女" || d.rela=="兄妹"){
+             lineColor="#A254A2";
+         }else if(d.rela=="领导"){
+             lineColor="#B43232";
+	 }else if(d.rela=="夫妻"){
+	     lineColor="#FAC0DA";
+         }else {
+	     lineColor="#B56C32";}
+         return lineColor;
+     })
+    .style("pointer-events", "none")
+    .style("stroke-width",0.5)//线条粗细
+    .attr("marker-end", "url(#resolved)" );//根据箭头标记的id号标记箭头
+
+var edges_text = svg.append("g").selectAll(".edgelabel")
+.data(force.links())
+.enter()
+.append("text")
+.style("pointer-events", "none")
+//.attr("class","linetext")
+.attr({  'class':'edgelabel',
+               'id':function(d,i){return 'edgepath'+i;},
+               'dx':80,
+               'dy':0
+               //'font-size':10,
+               //'fill':'#aaa'
+               });
+
+//设置线条上的文字
+edges_text.append('textPath')
+.attr('xlink:href',function(d,i) {return '#edgepath'+i})
+.style("pointer-events", "none")
+.text(function(d){return d.rela;});
+
+//圆圈
+var circle = svg.append("g").selectAll("circle")
+    .data(force.nodes())//表示使用force.nodes数据
+    .enter().append("circle")
+    .style("fill",function(node){
+        var color;//圆圈背景色
+        var link=links[node.index];
+        if(node.name==link.source.name && link.rela=="领导"){
+            color="#F6E8E9";
+        }else{
+            color="#F9EBF9";
+        }
+        return color;
+    })
+    .style('stroke',function(node){ 
+        var color;//圆圈线条的颜色
+        var link=links[node.index];
+        if(node.name==link.source.name && link.rela=="领导"){
+            color="#B43232";
+        }else{
+            color="#A254A2";
+        }
+        return color;
+    })
+    .attr("r", 28)//设置圆圈半径
+    .on("click",function(node){
+        //单击时让连接线加粗
+        edges_line.style("stroke-width",function(line){
+            console.log(line);
+            if(line.source.name==node.name || line.target.name==node.name){
+                return 4;
+            }else{
+                return 0.5;
+            }
+        });
+        //d3.select(this).style('stroke-width',2);
+    })
+    .call(force.drag);//将当前选中的元素传到drag函数中，使顶点可以被拖动
+    /*
+     circle.append("text")  
+    .attr("dy", ".35em")  
+    .attr("text-anchor", "middle")//在圆圈内添加文字  
+    .text(function(d) { 
+        //console.log(d);
+        return d.name; 
+    }); */ 
+
+  //圆圈的提示文字
+  circle.append("svg:title")  
+        .text(function(node) { 
+            var link=links[node.index];
+            if(node.name==link.source.name && link.rela=="领导"){
+                return "双击可查看详情"
+            }
+         });  
+/* 矩形
+var rect=svg.append("rect")
+         .attr({"x":100,"y":100,
+                "width":100,"height":50,
+                "rx":5,//水平圆角
+                "ry":10//竖直圆角
+             })
+          .style({
+             "stroke":"red",
+             "stroke-width":1,
+             "fill":"yellow"
+});*/
+var text = svg.append("g").selectAll("text")
+    .data(force.nodes())
+    //返回缺失元素的占位对象（placeholder），指向绑定的数据中比选定元素集多出的一部分元素。
+    .enter()
+    .append("text")
+    .attr("dy", ".35em")  
+    .attr("text-anchor", "middle")//在圆圈中加上数据  
+    .style('fill',function(node){
+        var color;//文字颜色
+        var link=links[node.index];
+        if(node.name==link.source.name && link.rela=="领导"){
+            color="#B43232";
+        }else{
+            color="#A254A2";
+        }
+        return color;
+    }).attr('x',function(d){
+        // console.log(d.name+"---"+ d.name.length);
+        var re_en = /[a-zA-Z]+/g;
+        //如果是全英文，不换行
+        if(d.name.match(re_en)){
+             d3.select(this).append('tspan')
+             .attr('x',0)
+             .attr('y',2)
+             .text(function(){return d.name;});
+        }
+        //如果小于四个字符，不换行
+        else if(d.name.length<=4){
+             d3.select(this).append('tspan')
+            .attr('x',0)
+            .attr('y',2)
+            .text(function(){return d.name;});
+        }else{
+            var top=d.name.substring(0,4);
+            var bot=d.name.substring(4,d.name.length);
+
+            d3.select(this).text(function(){return '';});
+
+            d3.select(this).append('tspan')
+                .attr('x',0)
+                .attr('y',-7)
+                .text(function(){return top;});
+
+            d3.select(this).append('tspan')
+                .attr('x',0)
+                .attr('y',10)
+                .text(function(){return bot;});
+        }
+        //直接显示文字    
+        /*.text(function(d) { 
+        return d.name; */
+    });
+
+/*  将文字显示在圆圈的外面 
+var text2 = svg.append("g").selectAll("text")
+     .data(force.links())
+    //返回缺失元素的占位对象（placeholder），指向绑定的数据中比选定元素集多出的一部分元素。
+    .enter()
+    .append("text")
+    .attr("x", 150)//设置文字坐标
+    .attr("y", ".50em")
+    .text(function(d) { 
+        //console.log(d);
+        //return d.name; 
+        //return d.rela;
+        console.log(d);
+        return  '1111';
+    });*/
+
+function tick() {
+  //path.attr("d", linkArc);//连接线
+  circle.attr("transform", transform1);//圆圈
+  text.attr("transform", transform2);//顶点文字
+  //edges_text.attr("transform", transform3);
+  //text2.attr("d", linkArc);//连接线文字
+  //console.log("text2...................");
+  //console.log(text2);
+  //edges_line.attr("x1",function(d){ return d.source.x; });
+  //edges_line.attr("y1",function(d){ return d.source.y; });
+  //edges_line.attr("x2",function(d){ return d.target.x; });
+  //edges_line.attr("y2",function(d){ return d.target.y; });
     
-    <div class="centre">  <p class="typeing" >Whatever your past has been, you have a spotless future🚀.</p></div>
-<br> 
-<div class="footer" style="text-align: center">  
-<a href="https://github.com/vanyongqi"> <button class="button">❤</button></a>
-<button class="button button2">❤❤</button>
-<button class="button button3">❤❤❤</button>
-<button class="button button4">😄</button>
-<button class="button button4">😁</button>
+  //edges_line.attr("x",function(d){ return (d.source.x + d.target.x) / 2 ; });
+  //edges_line.attr("y",function(d){ return (d.source.y + d.target.y) / 2 ; });
 
-<button class="button button4">😊</button>
-     <strong>Archie's homepage</strong>
-<button class="button button5">😁</button>
 
-<button class="button button5">😎</button>
-<button class="button button5">🤭</button>    
-<button class="button">❤❤❤</button>
-<button class="button button2">❤❤</button>
-<button class="button button3">❤</button>
+  edges_line.attr('d', function(d) { 
+      var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
+      return path;
+  });  
+    
+  edges_text.attr('transform',function(d,i){
+        if (d.target.x<d.source.x){
+            bbox = this.getBBox();
+            rx = bbox.x+bbox.width/2;
+            ry = bbox.y+bbox.height/2;
+            return 'rotate(180 '+rx+' '+ry+')';
+        }
+        else {
+            return 'rotate(0)';
+        }
+   });
+}
 
-</div>
+//设置连接线的坐标,使用椭圆弧路径段双向编码
+function linkArc(d) {
+    //var dx = d.target.x - d.source.x,
+  // dy = d.target.y - d.source.y,
+     // dr = Math.sqrt(dx * dx + dy * dy);
+  //return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+  //打点path格式是：Msource.x,source.yArr00,1target.x,target.y  
+  
+  return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y
+}
+//设置圆圈和文字的坐标
+function transform1(d) {
+  return "translate(" + d.x + "," + d.y + ")";
+}
+function transform2(d) {
+      return "translate(" + (d.x) + "," + d.y + ")";
+}
 
-</body>
-</html>
+</script>
