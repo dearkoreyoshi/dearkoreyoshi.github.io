@@ -1,182 +1,414 @@
 <!DOCTYPE html>
-<html>
-<head>
 <meta charset="utf-8">
-<title>偷得浮生半日闲👍</title>
 <style>
-* {
-  box-sizing: border-box;
-}
- 
-body {
-  font-family: Arial;
-  padding: 10px;
-  background: #f1f1f1;
-}
- 
-/* 头部标题 */
-.header {
-  padding: 5px;
-  text-align: center;
-  background: white;
-}
- 
-.header h1 {
-  font-size: 50px;
-}
- 
-/* 导航条 */
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
- 
-/* 导航条链接 */
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
- 
-/* 链接颜色修改 */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
- 
 
-.leftcolumn {   
-  float: left;
-  width: 75%;
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
 }
- 
-.rightcolumn {
-  float: left;
-  width: 25%;
-  background-color: #f1f1f1;
-  padding-left: 20px;
+
+#licensing {
+  fill: green;
 }
- 
-/* 图像部分 */
-.fakeimg {
-  background-color: #aaa;
-    padding:5px;
-  width: 100%;
- height: 250px;
+
+.link.licensing {
+  stroke: green;
 }
-    .fakeimg1 {
-  background-color: #aaa;
-    padding:5px;
-  width: 100%;
- height: auto;
+
+.link.resolved {
+  stroke-dasharray: 0,2 1;
 }
- 
-/* 文章卡片效果 */
-.card {
-  background-color: white;
-  padding: 20px;
-  margin-top: 20px;
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
 }
- 
-/* 列后面清除浮动 */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+
+text {
+  font: 12px Microsoft YaHei;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
- 
-/* 底部 */
-.footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
-  margin-top: 20px;
+
+.linetext {
+    font-size: 12px Microsoft YaHei;
 }
- 
-/* 响应式布局 - 屏幕尺寸小于 800px 时，两列布局改为上下布局 */
-@media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {   
-    width: 100%;
-    padding: 0;
-  }
-}
- 
-/* 响应式布局 -屏幕尺寸小于 400px 时，导航等布局改为上下布局 */
-@media screen and (max-width: 400px) {
-  .topnav a {
-    float: none;
-    width: 100%;
-  }
-}
-    .bookborder{
-        border:2px auto;
-    }
+
 </style>
-</head>
 <body>
-    <script type="text/javascript" src="me.js" ></script>
-<div class="header">
-  <h1>偷得浮生半日闲🎐</h1>
-  <p><strong>find a moment of leisure in a busy life</strong></p>
-</div>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
 
-<div class="topnav">
-  <a href="#">📕文学</a>
-  <a href="#">音乐🎵</a>
-  <a href="#">电影🎦</a>
-  <a href="#" style="float:right">动漫😋</a>
-</div>
+// http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
+var links = [
+  {source: "孙坚", target: "孙策", type: "resolved", rela:"父子"},
+  {source: "孙坚", target: "孙权", type: "resolved", rela:"父子"},
+  {source: "孙坚", target: "孙尚香", type: "resolved", rela:"父女"},
+  {source: "孙坚", target: "韩当", type: "resolved", rela:"领导"},
+  {source: "孙坚", target: "丁奉", type: "resolved", rela:"领导"},
+  {source: "孙坚", target: "朱治", type: "resolved",rela:"领导"},
+  {source: "孙策", target: "孙尚香", type: "resolved",rela:"兄妹"},
+  {source: "孙策", target: "孙权", type: "resolved", rela:"兄弟"},
+  {source: "孙策", target: "周喻", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "程普", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "韩当", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "蒋钦", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "周泰", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "太史慈", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "丁奉", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "张昭", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "张纮", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "大乔", type: "resolved", rela:"夫妻"},
+  {source: "孙策", target: "贺齐", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "董袭", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "朱治", type: "resolved", rela:"领导"},
+  {source: "孙策", target: "吕范", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "孙尚香", type: "resolved", rela:"兄妹"},
+  {source: "孙权", target: "孙亮", type: "resolved", rela:"父子"},
+  {source: "孙权", target: "周瑜", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "吕蒙", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "陆逊", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "黄盖", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "程普", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "韩当", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "蒋钦", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "周泰", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "甘宁", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "太史慈", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "徐盛", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "丁奉", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "鲁肃", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "张昭", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "张纮", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "顾雍", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "诸葛瑾", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "诸葛恪", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "潘璋", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "凌统", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "阚泽", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "凌操", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "贺齐", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "董袭", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "朱桓", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "朱然", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "步骘", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "陆绩", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "薛综", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "朱治", type: "resolved", rela:"领导"},
+  {source: "孙权", target: "吕范", type: "resolved", rela:"领导"},
+  {source: "周瑜", target: "吕蒙", type: "resolved", rela:"领导"},
+  {source: "周瑜", target: "程普", type: "resolved", rela:"领导"},
+  {source: "周瑜", target: "小乔", type: "resolved", rela:"夫妻"},
+  {source: "周瑜", target: "诸葛亮", type: "resolved", rela:"对手"},
+  {source: "陆逊", target: "大乔", type: "resolved", rela:"岳母女婿"},
+  {source: "陆逊", target: "陆绩", type: "resolved", rela:"叔侄"},
+  {source: "大乔", target: "小乔", type: "resolved", rela:"姐妹"},
+  {source: "陆绩", target: "庞统", type: "resolved", rela:"朋友"},
+  {source: "凌操", target: "凌统", type: "resolved", rela:"父子"},
+  {source: "潘璋", target: "马忠", type: "resolved", rela:"领导"},
+  {source: "诸葛瑾", target: "诸葛恪", type: "resolved", rela:"父子"},
+  {source: "诸葛瑾", target: "诸葛亮", type: "resolved", rela:"兄弟"},
+  {source: "孙亮", target: "诸葛恪", type: "resolved", rela:"领导"},
+  {source: "鲁肃", target: "吕蒙", type: "resolved", rela:"朋友"},
+  {source: "孙尚香", target: "刘备", type: "resolved", rela:"夫妻"},
+  {source: "张昭", target: "张纮", type: "resolved", rela:"二张"}
 
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card">
-      <h2>读的书</h2>
-      <h5>2019 年 6 月 22日</h5>
-      <div class="fakeimg" style="text-align: center"><img src="photo/s3349943.jpg" height="65%">
-          <img src="photo/4ec2d5628535e5dd720b780e7dc6a7efce1b6238.jpg" height="92%">
-        <img src="photo/s1326174.jpg" height="80%">
-        <img src="photo/s6384944.jpg"  height="100%">
-        <img src="photo/s27598249.jpg" height="90%">
-          <img src="photo/s27227804.jpg"height="80%">
-        </div>
-      <p><strong>人不过是一颗会思考的蒲苇,少些聒噪，不如安静享受人生。</strong></p>
+];
+
+var nodes = {};
+
+links.forEach(function(link) {
+  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+});
+
+var width = 2200,
+    height = 1500;
+
+var force = d3.layout.force()//layout将json格式转化为力学图可用的格式
+    .nodes(d3.values(nodes))//设定节点数组
+    .links(links)//设定连线数组
+    .size([width, height])//作用域的大小
+    .linkDistance(180)//连接线长度
+    .charge(-1500)//顶点的电荷数。该参数决定是排斥还是吸引，数值越小越互相排斥
+    .on("tick", tick)//指时间间隔，隔一段时间刷新一次画面
+    .start();//开始转换
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+//箭头
+var marker=
+    svg.append("marker")
+    //.attr("id", function(d) { return d; })
+    .attr("id", "resolved")
+    //.attr("markerUnits","strokeWidth")//设置为strokeWidth箭头会随着线的粗细发生变化
+    .attr("markerUnits","userSpaceOnUse")
+    .attr("viewBox", "0 -5 10 10")//坐标系的区域
+    .attr("refX",32)//箭头坐标
+    .attr("refY", -1)
+    .attr("markerWidth", 12)//标识的大小
+    .attr("markerHeight", 12)
+    .attr("orient", "auto")//绘制方向，可设定为：auto（自动确认方向）和 角度值
+    .attr("stroke-width",2)//箭头宽度
+    .append("path")
+    .attr("d", "M0,-5L10,0L0,5")//箭头的路径
+    .attr('fill','#000000');//箭头颜色
+
+/* 将连接线设置为曲线
+var path = svg.append("g").selectAll("path")
+    .data(force.links())
+    .enter().append("path")
+    .attr("class", function(d) { return "link " + d.type; })
+    .style("stroke",function(d){
+        //console.log(d);
+       return "#A254A2";//连接线的颜色
+    })
+    .attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
+*/
+
+//设置连接线    
+var edges_line = svg.selectAll(".edgepath")
+    .data(force.links())
+    .enter()
+    .append("path")
+    .attr({
+          'd': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
+          'class':'edgepath',
+          //'fill-opacity':0,
+          //'stroke-opacity':0,
+          //'fill':'blue',
+          //'stroke':'red',
+          'id':function(d,i) {return 'edgepath'+i;}})
+    .style("stroke",function(d){
+         var lineColor;
+         //根据关系的不同设置线条颜色
+         if(d.rela=="父子" || d.rela=="父女" || d.rela=="兄妹"){
+             lineColor="#A254A2";
+         }else if(d.rela=="领导"){
+             lineColor="#B43232";
+	 }else if(d.rela=="夫妻"){
+	     lineColor="#FAC0DA";
+         }else {
+	     lineColor="#B56C32";}
+         return lineColor;
+     })
+    .style("pointer-events", "none")
+    .style("stroke-width",0.5)//线条粗细
+    .attr("marker-end", "url(#resolved)" );//根据箭头标记的id号标记箭头
+
+var edges_text = svg.append("g").selectAll(".edgelabel")
+.data(force.links())
+.enter()
+.append("text")
+.style("pointer-events", "none")
+//.attr("class","linetext")
+.attr({  'class':'edgelabel',
+               'id':function(d,i){return 'edgepath'+i;},
+               'dx':80,
+               'dy':0
+               //'font-size':10,
+               //'fill':'#aaa'
+               });
+
+//设置线条上的文字
+edges_text.append('textPath')
+.attr('xlink:href',function(d,i) {return '#edgepath'+i})
+.style("pointer-events", "none")
+.text(function(d){return d.rela;});
+
+//圆圈
+var circle = svg.append("g").selectAll("circle")
+    .data(force.nodes())//表示使用force.nodes数据
+    .enter().append("circle")
+    .style("fill",function(node){
+        var color;//圆圈背景色
+        var link=links[node.index];
+        if(node.name==link.source.name && link.rela=="领导"){
+            color="#F6E8E9";
+        }else{
+            color="#F9EBF9";
+        }
+        return color;
+    })
+    .style('stroke',function(node){ 
+        var color;//圆圈线条的颜色
+        var link=links[node.index];
+        if(node.name==link.source.name && link.rela=="领导"){
+            color="#B43232";
+        }else{
+            color="#A254A2";
+        }
+        return color;
+    })
+    .attr("r", 28)//设置圆圈半径
+    .on("click",function(node){
+        //单击时让连接线加粗
+        edges_line.style("stroke-width",function(line){
+            console.log(line);
+            if(line.source.name==node.name || line.target.name==node.name){
+                return 4;
+            }else{
+                return 0.5;
+            }
+        });
+        //d3.select(this).style('stroke-width',2);
+    })
+    .call(force.drag);//将当前选中的元素传到drag函数中，使顶点可以被拖动
+    /*
+     circle.append("text")  
+    .attr("dy", ".35em")  
+    .attr("text-anchor", "middle")//在圆圈内添加文字  
+    .text(function(d) { 
+        //console.log(d);
+        return d.name; 
+    }); */ 
+
+  //圆圈的提示文字
+  circle.append("svg:title")  
+        .text(function(node) { 
+            var link=links[node.index];
+            if(node.name==link.source.name && link.rela=="领导"){
+                return "双击可查看详情"
+            }
+         });  
+/* 矩形
+var rect=svg.append("rect")
+         .attr({"x":100,"y":100,
+                "width":100,"height":50,
+                "rx":5,//水平圆角
+                "ry":10//竖直圆角
+             })
+          .style({
+             "stroke":"red",
+             "stroke-width":1,
+             "fill":"yellow"
+});*/
+var text = svg.append("g").selectAll("text")
+    .data(force.nodes())
+    //返回缺失元素的占位对象（placeholder），指向绑定的数据中比选定元素集多出的一部分元素。
+    .enter()
+    .append("text")
+    .attr("dy", ".35em")  
+    .attr("text-anchor", "middle")//在圆圈中加上数据  
+    .style('fill',function(node){
+        var color;//文字颜色
+        var link=links[node.index];
+        if(node.name==link.source.name && link.rela=="领导"){
+            color="#B43232";
+        }else{
+            color="#A254A2";
+        }
+        return color;
+    }).attr('x',function(d){
+        // console.log(d.name+"---"+ d.name.length);
+        var re_en = /[a-zA-Z]+/g;
+        //如果是全英文，不换行
+        if(d.name.match(re_en)){
+             d3.select(this).append('tspan')
+             .attr('x',0)
+             .attr('y',2)
+             .text(function(){return d.name;});
+        }
+        //如果小于四个字符，不换行
+        else if(d.name.length<=4){
+             d3.select(this).append('tspan')
+            .attr('x',0)
+            .attr('y',2)
+            .text(function(){return d.name;});
+        }else{
+            var top=d.name.substring(0,4);
+            var bot=d.name.substring(4,d.name.length);
+
+            d3.select(this).text(function(){return '';});
+
+            d3.select(this).append('tspan')
+                .attr('x',0)
+                .attr('y',-7)
+                .text(function(){return top;});
+
+            d3.select(this).append('tspan')
+                .attr('x',0)
+                .attr('y',10)
+                .text(function(){return bot;});
+        }
+        //直接显示文字    
+        /*.text(function(d) { 
+        return d.name; */
+    });
+
+/*  将文字显示在圆圈的外面 
+var text2 = svg.append("g").selectAll("text")
+     .data(force.links())
+    //返回缺失元素的占位对象（placeholder），指向绑定的数据中比选定元素集多出的一部分元素。
+    .enter()
+    .append("text")
+    .attr("x", 150)//设置文字坐标
+    .attr("y", ".50em")
+    .text(function(d) { 
+        //console.log(d);
+        //return d.name; 
+        //return d.rela;
+        console.log(d);
+        return  '1111';
+    });*/
+
+function tick() {
+  //path.attr("d", linkArc);//连接线
+  circle.attr("transform", transform1);//圆圈
+  text.attr("transform", transform2);//顶点文字
+  //edges_text.attr("transform", transform3);
+  //text2.attr("d", linkArc);//连接线文字
+  //console.log("text2...................");
+  //console.log(text2);
+  //edges_line.attr("x1",function(d){ return d.source.x; });
+  //edges_line.attr("y1",function(d){ return d.source.y; });
+  //edges_line.attr("x2",function(d){ return d.target.x; });
+  //edges_line.attr("y2",function(d){ return d.target.y; });
     
-    </div>
-    <div class="card">
-      <h2>看的电影</h2>
-      <h5>2019 年 6月 22日</h5>
-      <div class="fakeimg" style="height:400px;text-align: center">
-            <img src="photo/091239.28821393_1000X1000.jpg" height="100%">
-            <img src="photo/113845.39930557_1000X1000.jpg" height="80%">
-          <img src="photo/170933.80329367_1000X1000.jpg"height="88%">
-          <img src="photo/144459.67092113_1000X1000.jpg" height="80%">
-      </div>
-      <p>觉得还不错</p>
-    </div>
-  </div>
-  <div class="rightcolumn">
-    <div class="card">
-      <h2>误入の二次元</h2>
-         <h5>2019 年 6 月 22日</h5>
-        <div class="fakeimg1"><img src="photo/9213b07eca806538da1a0e4b784ca541ac348209.jpeg" width="100%"height="100%"></div>
-      <p>银魂完结，不留遗憾</p>
-    </div>
-    <div class="card">
-      <h3>一拳超人</h3>
-        <h5>2019 年 6 月 22日</h5>
-      <div class="fakeimg1"><img src="photo/u=1776537392,2847643283&fm=173&app=49&f=JPEG.jpg"width="100%"></div>
-        <p>有意志消沉的功夫,还是选择继续前进比较好</p>
-    </div>
+  //edges_line.attr("x",function(d){ return (d.source.x + d.target.x) / 2 ; });
+  //edges_line.attr("y",function(d){ return (d.source.y + d.target.y) / 2 ; });
+
+
+  edges_line.attr('d', function(d) { 
+      var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
+      return path;
+  });  
+    
+  edges_text.attr('transform',function(d,i){
+        if (d.target.x<d.source.x){
+            bbox = this.getBBox();
+            rx = bbox.x+bbox.width/2;
+            ry = bbox.y+bbox.height/2;
+            return 'rotate(180 '+rx+' '+ry+')';
+        }
+        else {
+            return 'rotate(0)';
+        }
+   });
+}
+
+//设置连接线的坐标,使用椭圆弧路径段双向编码
+function linkArc(d) {
+    //var dx = d.target.x - d.source.x,
+  // dy = d.target.y - d.source.y,
+     // dr = Math.sqrt(dx * dx + dy * dy);
+  //return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+  //打点path格式是：Msource.x,source.yArr00,1target.x,target.y  
   
-  </div>
-</div>
+  return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y
+}
+//设置圆圈和文字的坐标
+function transform1(d) {
+  return "translate(" + d.x + "," + d.y + ")";
+}
+function transform2(d) {
+      return "translate(" + (d.x) + "," + d.y + ")";
+}
 
-<div class="footer">
-  <h2>纪录一下消遣的生活 🍀</h2>
-</div>
 
-</body>
-</html>
+
+</script>
